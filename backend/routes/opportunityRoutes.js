@@ -1,36 +1,56 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 
 const router = express.Router();
 
-const opportunities = [
-  {
-    id: 1,
-    title: "Frontend Developer Intern",
-    company: "Tech Solutions",
-    domain: "Web Development",
-    location: "Hyderabad",
-    experience: "Fresher"
-  },
-  {
-    id: 2,
-    title: "Python Developer Intern",
-    company: "Innovate Labs",
-    domain: "Python",
-    location: "Bangalore",
-    experience: "Fresher"
-  },
-  {
-    id: 3,
-    title: "AI/ML Intern",
-    company: "Future AI",
-    domain: "Artificial Intelligence",
-    location: "Hyderabad",
-    experience: "Fresher"
-  }
-];
+let db;
 
-router.get("/", (req, res) => {
-  res.json(opportunities);
+const setDatabase = (database) => {
+  db = database;
+};
+
+// Get all opportunities
+router.get("/", async (req, res) => {
+  try {
+    const opportunities = await db
+      .collection("opportunities")
+      .find()
+      .toArray();
+
+    res.json(opportunities);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch opportunities",
+      error: error.message
+    });
+  }
 });
 
-module.exports = router;
+// Get one opportunity by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const opportunity = await db
+      .collection("opportunities")
+      .findOne({
+        _id: new ObjectId(req.params.id)
+      });
+
+    if (!opportunity) {
+      return res.status(404).json({
+        message: "Opportunity not found"
+      });
+    }
+
+    res.json(opportunity);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch opportunity",
+      error: error.message
+    });
+  }
+});
+
+module.exports = {
+  router,
+  setDatabase
+};

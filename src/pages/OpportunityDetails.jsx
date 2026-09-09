@@ -1,22 +1,48 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import opportunities from "../data/opportunities";
 
 function OpportunityDetails() {
   const { id } = useParams();
 
-  const opportunity = opportunities.find(
-    (item) => item.id === Number(id)
-  );
+  const [opportunity, setOpportunity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  if (!opportunity) {
-    return <h2>Opportunity not found</h2>;
+  useEffect(() => {
+    fetch(`/api/opportunities/${id}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Opportunity not found");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setOpportunity(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setError("Unable to load opportunity");
+        setLoading(false);
+      });
+  }, [id]);
+
+  if (loading) {
+    return <h2>Loading opportunity...</h2>;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
   }
 
   return (
-    <div className="details-container">
+    <div>
       <h1>{opportunity.title}</h1>
 
-      <h2>{opportunity.company}</h2>
+      <p>
+        <strong>Company:</strong> {opportunity.company}
+      </p>
 
       <p>
         <strong>Domain:</strong> {opportunity.domain}
@@ -30,14 +56,16 @@ function OpportunityDetails() {
         <strong>Experience:</strong> {opportunity.experience}
       </p>
 
-      <h3>Job Description</h3>
+      <p>
+        <strong>Description:</strong>
+      </p>
 
       <p>{opportunity.description}</p>
 
       <a
         href={opportunity.applicationLink}
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
         Apply Now
       </a>

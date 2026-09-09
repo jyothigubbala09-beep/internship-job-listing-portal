@@ -1,78 +1,108 @@
-import { useState } from "react";
-import opportunities from "../data/opportunities";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
+  const [opportunities, setOpportunities] = useState([]);
   const [search, setSearch] = useState("");
-  const [domain, setDomain] = useState("");
+  const [domain, setDomain] = useState("All");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const filteredOpportunities = opportunities.filter((opportunity) => {
+  useEffect(() => {
+    fetch("/api/opportunities")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch opportunities");
+        }
+
+        return response.json();
+      })
+      .then((data) => {
+        setOpportunities(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setError("Unable to load opportunities");
+        setLoading(false);
+      });
+  }, []);
+
+  const domains = [
+    "All",
+    ...new Set(opportunities.map((item) => item.domain))
+  ];
+
+  const filteredOpportunities = opportunities.filter((item) => {
     const matchesSearch =
-      opportunity.title.toLowerCase().includes(search.toLowerCase()) ||
-      opportunity.company.toLowerCase().includes(search.toLowerCase());
+      item.title.toLowerCase().includes(search.toLowerCase()) ||
+      item.company.toLowerCase().includes(search.toLowerCase());
 
     const matchesDomain =
-      domain === "" || opportunity.domain === domain;
+      domain === "All" || item.domain === domain;
 
     return matchesSearch && matchesDomain;
   });
 
+  if (loading) {
+    return <h2>Loading opportunities...</h2>;
+  }
+
+  if (error) {
+    return <h2>{error}</h2>;
+  }
+
   return (
-    <div className="home-container">
-      <h1>Internship & Job Listing Portal</h1>
+    <div>
+      <h1>Internship & Job Opportunities</h1>
 
-      <p>Find internships and job opportunities that match your skills.</p>
+      <input
+        type="text"
+        placeholder="Search opportunities..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Search opportunities..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <select
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-        >
-          <option value="">All Domains</option>
-          <option value="Web Development">Web Development</option>
-          <option value="Python">Python</option>
-          <option value="Artificial Intelligence">
-            Artificial Intelligence
+      <select
+        value={domain}
+        onChange={(e) => setDomain(e.target.value)}
+      >
+        {domains.map((item) => (
+          <option key={item} value={item}>
+            {item}
           </option>
-          <option value="Data Science">Data Science</option>
-        </select>
-      </div>
+        ))}
+      </select>
 
-      <div className="opportunity-list">
-        {filteredOpportunities.length > 0 ? (
-          filteredOpportunities.map((opportunity) => (
-            <div className="opportunity-card" key={opportunity.id}>
-              <h2>{opportunity.title}</h2>
-
-              <h3>{opportunity.company}</h3>
+      <div>
+        {filteredOpportunities.length === 0 ? (
+          <p>No opportunities found.</p>
+        ) : (
+          filteredOpportunities.map((item) => (
+            <div key={item._id}>
+              <h2>{item.title}</h2>
 
               <p>
-                <strong>Domain:</strong> {opportunity.domain}
+                <strong>Company:</strong> {item.company}
               </p>
 
               <p>
-                <strong>Location:</strong> {opportunity.location}
+                <strong>Domain:</strong> {item.domain}
               </p>
 
               <p>
-                <strong>Experience:</strong> {opportunity.experience}
+                <strong>Location:</strong> {item.location}
               </p>
 
-              <p>{opportunity.description}</p>
+              <p>
+                <strong>Experience:</strong> {item.experience}
+              </p>
 
-              <a href={`/opportunity/${opportunity.id}`}>
+              <Link to={`/opportunity/${item._id}`}>
                 View Details
-              </a>
+              </Link>
             </div>
           ))
-        ) : (
-          <p>No opportunities found.</p>
         )}
       </div>
     </div>

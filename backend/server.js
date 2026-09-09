@@ -1,29 +1,53 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const cors = require("cors");
+const { MongoClient } = require("mongodb");
 
-const opportunityRoutes = require("./routes/opportunityRoutes");
+dotenv.config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5000;
+const client = new MongoClient(process.env.MONGODB_URL);
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "Internship & Job Listing Portal API is running"
-  });
-});
+const {
+  router: opportunityRoutes,
+  setDatabase
+} = require("./routes/opportunityRoutes");
 
-app.get("/api/test", (req, res) => {
-  res.json({
-    message: "Backend API is working successfully"
-  });
-});
+async function startServer() {
+  try {
+    await client.connect();
 
-app.use("/api/opportunities", opportunityRoutes);
+    console.log("DB Connected Successfully");
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+    const db = client.db("internshipPortal");
+
+    setDatabase(db);
+
+    app.get("/", (req, res) => {
+      res.json({
+        message: "Internship & Job Listing Portal API is running"
+      });
+    });
+
+    app.get("/api/test", (req, res) => {
+      res.json({
+        message: "Backend API is working successfully"
+      });
+    });
+
+    app.use("/api/opportunities", opportunityRoutes);
+
+    app.listen(5000, () => {
+      console.log("Server started on port 5000");
+    });
+
+  } catch (error) {
+    console.log("Database Connection Error:", error);
+  }
+}
+
+startServer();
