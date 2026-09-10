@@ -63,9 +63,7 @@ function OpportunityDetails() {
       <p>{opportunity.description}</p>
 
       <a
-        href={opportunity.applicationLink}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={'/apply/${id}'}
       >
         Apply Now
       </a>

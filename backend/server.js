@@ -16,6 +16,10 @@ const {
   router: opportunityRoutes,
   setDatabase
 } = require("./routes/opportunityRoutes");
+const {
+  router: applicationRoutes,
+  setDatabase: setApplicationDatabase
+} = require("./routes/applicationRoutes");
 
 async function startServer() {
   try {
@@ -26,6 +30,7 @@ async function startServer() {
     const db = client.db("internshipPortal");
 
     setDatabase(db);
+    setApplicationDatabase(db);
 
     app.get("/", (req, res) => {
       res.json({
@@ -40,6 +45,7 @@ async function startServer() {
     });
 
     app.use("/api/opportunities", opportunityRoutes);
+    app.use("/api/applications", applicationRoutes);
 
     app.listen(5000, () => {
       console.log("Server started on port 5000");
