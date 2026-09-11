@@ -20,6 +20,10 @@ const {
   router: applicationRoutes,
   setDatabase: setApplicationDatabase
 } = require("./routes/applicationRoutes");
+const {
+  router: adminRoutes,
+  setDatabase: setAdminDatabase
+} = require("./routes/adminRoutes");
 
 async function startServer() {
   try {
@@ -31,6 +35,8 @@ async function startServer() {
 
     setDatabase(db);
     setApplicationDatabase(db);
+    setAdminDatabase(db);
+    
 
     app.get("/", (req, res) => {
       res.json({
@@ -46,7 +52,7 @@ async function startServer() {
 
     app.use("/api/opportunities", opportunityRoutes);
     app.use("/api/applications", applicationRoutes);
-
+    app.use("/api/admin", adminRoutes);
     app.listen(5000, () => {
       console.log("Server started on port 5000");
     });
