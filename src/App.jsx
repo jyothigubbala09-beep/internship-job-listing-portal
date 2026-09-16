@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import OpportunityDetails from "./pages/OpportunityDetails";
-import ApplicationForm from "./pages/ApplicationForm";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -15,11 +15,12 @@ function App() {
         <Route
           path="/opportunity/:id"
           element={<OpportunityDetails />}
-          />
-          <Route
-  path="/apply/:id"
-  element={<ApplicationForm />}
-/>
+        />
+
+        <Route
+          path="/admin"
+          element={<AdminDashboard />}
+        />
       </Routes>
     </BrowserRouter>
   );
