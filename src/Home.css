@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../Home.css";
 
 function Home() {
   const [opportunities, setOpportunities] = useState([]);
@@ -75,6 +74,7 @@ function Home() {
   return (
     <div className="home-container">
 
+      {/* Header */}
       <div className="home-header">
         <h1>Internship & Job Opportunities</h1>
 
@@ -84,6 +84,7 @@ function Home() {
         </p>
       </div>
 
+      {/* Search and Filter */}
       <div className="search-section">
 
         <input
@@ -106,6 +107,7 @@ function Home() {
 
       </div>
 
+      {/* Results count */}
       <p className="result-count">
         Showing {filteredOpportunities.length}{" "}
         {filteredOpportunities.length === 1
@@ -113,6 +115,7 @@ function Home() {
           : "opportunities"}
       </p>
 
+      {/* Opportunities */}
       {filteredOpportunities.length === 0 ? (
         <div className="no-results">
           <h2>No opportunities found</h2>

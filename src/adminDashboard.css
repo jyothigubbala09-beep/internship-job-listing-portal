@@ -1,0 +1,76 @@
+.admin-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.admin-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-form {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+}
+
+.admin-form input,
+.admin-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.admin-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.admin-form button,
+.opportunity-card button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.admin-form button {
+  margin-top: 15px;
+}
+
+.opportunity-list {
+  display: grid;
+  gap: 20px;
+}
+
+.opportunity-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.message {
+  margin: 15px 0;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .admin-container {
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .admin-form {
+    padding: 18px;
+  }
+}

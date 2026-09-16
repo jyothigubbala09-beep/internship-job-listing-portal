@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import OpportunityDetails from "./pages/OpportunityDetails";
-import AdminDashboard from "./pages/AdminDashboard";
+import Home from "./pages/Home.jsx";
+import OpportunityDetails from "./pages/OpportunityDetails.jsx";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 function App() {
   return (
