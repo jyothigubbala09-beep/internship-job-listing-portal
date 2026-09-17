@@ -1,16 +1,141 @@
-# React + Vite
+# 🚀 CareerHub — Internship & Job Listing Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+CareerHub is a full-stack web application that helps users discover internship and job opportunities through a simple, modern and responsive interface.
 
-Currently, two official plugins are available:
+The application allows users to browse opportunities, search and filter listings, view complete opportunity details and access the configured application link.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+An Admin Dashboard is provided to manage opportunity listings through Create, Read, Update and Delete (CRUD) operations.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🌐 Project Overview
 
-## Expanding the ESLint configuration
+CareerHub was developed as a full-stack internship project using modern web technologies.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The project demonstrates:
+
+- Frontend development using React.js
+- Backend API development using Node.js and Express.js
+- Database integration using MongoDB
+- REST API communication
+- CRUD operations
+- Search and filtering
+- Responsive UI design
+- Form validation
+- API testing
+- Git and GitHub workflow
+
+---
+
+## ✨ Features
+
+### 👤 User Features
+
+- View available internship and job opportunities
+- Search opportunities by title or company
+- Filter opportunities by domain
+- View complete opportunity details
+- View company, location and experience information
+- Open the configured application link
+- Responsive design for different screen sizes
+
+### 🛠️ Admin Features
+
+- Add new opportunities
+- View existing opportunities
+- Edit opportunity details
+- Delete opportunities
+- Form validation
+- Loading and saving states
+- Success/error messages
+
+---
+
+## 🖥️ UI Highlights
+
+CareerHub includes a clean and modern interface with:
+
+- Professional navigation bar
+- Career-focused hero section
+- Search and domain filter
+- Modern opportunity cards
+- Opportunity details layout
+- Dedicated Apply Now section
+- Admin dashboard
+- Responsive mobile layout
+- Hover and loading effects
+- Professional footer
+
+---
+
+## 🧰 Technologies Used
+
+### Frontend
+
+- React.js
+- Vite
+- React Router
+- HTML
+- CSS
+- JavaScript
+
+### Backend
+
+- Node.js
+- Express.js
+- REST APIs
+
+### Database
+
+- MongoDB
+- MongoDB Native Driver (`MongoClient`)
+
+### Development Tools
+
+- Visual Studio Code
+- Postman
+- Git
+- GitHub
+- MongoDB
+
+---
+
+## 📁 Project Structure
+
+```text
+intership-job-portal/
+│
+├── backend/
+│   ├── routes/
+│   │   └── opportunityRoutes.js
+│   │
+│   ├── .env
+│   ├── server.js
+│   └── package.json
+│
+├── src/
+│   ├── assets/
+│   │
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Navbar.css
+│   │   ├── Footer.jsx
+│   │   └── Footer.css
+│   │
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── OpportunityDetails.jsx
+│   │   ├── AdminDashboard.jsx
+│   │   └── ApplicationForm.jsx
+│   │
+│   ├── data/
+│   │
+│   ├── App.jsx
+│   ├── App.css
+│   ├── Home.css
+│   ├── OpportunityDetails.css
+│   └── AdminDashboard.css
+│
+├── package.json
+├── vite.config.js
+└── README.md

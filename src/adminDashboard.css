@@ -1,31 +1,86 @@
+/* =================================
+   CAREERHUB - ADMIN DASHBOARD
+================================= */
+
 .admin-container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 20px;
+  min-height: 100vh;
+  padding: 50px 6%;
+  background: #f7f8fc;
+  color: #172033;
 }
+
+
+/* =================================
+   HEADER
+================================= */
 
 .admin-title {
-  text-align: center;
-  margin-bottom: 30px;
+  max-width: 1200px;
+  margin: 0 auto 30px;
+  color: #172033;
+  font-size: 34px;
+  letter-spacing: -1px;
 }
 
+
+/* =================================
+   FORM CARD
+================================= */
+
 .admin-form {
+  max-width: 1200px;
+  margin: 0 auto 45px;
+  padding: 30px;
+  border: 1px solid #e6e8ef;
+  border-radius: 20px;
   background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  margin-bottom: 40px;
+  box-shadow: 0 8px 30px rgba(30, 34, 60, 0.05);
+}
+
+.admin-form h2 {
+  margin: 0 0 25px;
+  color: #202638;
+  font-size: 22px;
+}
+
+
+/* =================================
+   FORM INPUTS
+================================= */
+
+.admin-form form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
 .admin-form input,
 .admin-form textarea {
   width: 100%;
   box-sizing: border-box;
-  padding: 12px;
-  margin-top: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
+  padding: 14px 15px;
+  border: 1px solid #dfe2ea;
+  border-radius: 10px;
+  outline: none;
+  background: #fafbfc;
+  color: #202638;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus {
+  border-color: #635bff;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.1);
+}
+
+.admin-form input::placeholder,
+.admin-form textarea::placeholder {
+  color: #9aa0ae;
 }
 
 .admin-form textarea {
@@ -33,44 +88,236 @@
   resize: vertical;
 }
 
-.admin-form button,
-.opportunity-card button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-right: 10px;
-  font-size: 14px;
+
+/* Make description full width */
+.admin-form textarea {
+  grid-column: 1 / -1;
 }
+
+
+/* Remove old br spacing */
+.admin-form form br {
+  display: none;
+}
+
+
+/* =================================
+   FORM BUTTONS
+================================= */
 
 .admin-form button {
-  margin-top: 15px;
+  width: fit-content;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 9px;
+  background: #635bff;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-.opportunity-list {
-  display: grid;
-  gap: 20px;
+.admin-form button:hover {
+  background: #5149e8;
+  transform: translateY(-1px);
 }
 
-.opportunity-card {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+.admin-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
+
+
+/* Cancel button */
+.admin-form button[type="button"] {
+  background: #eef0f4;
+  color: #4c5568;
+  margin-left: 8px;
+}
+
+.admin-form button[type="button"]:hover {
+  background: #e2e5eb;
+}
+
+
+/* =================================
+   MESSAGE
+================================= */
 
 .message {
-  margin: 15px 0;
+  margin: 20px 0 0;
+  padding: 12px 15px;
+  border-radius: 9px;
+  background: #f0faf7;
+  color: #25836d;
+  font-size: 13px;
   font-weight: 600;
 }
 
-@media (max-width: 600px) {
+
+/* =================================
+   EXISTING OPPORTUNITIES
+================================= */
+
+.admin-container > h2 {
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  color: #202638;
+  font-size: 23px;
+}
+
+
+/* =================================
+   OPPORTUNITY GRID
+================================= */
+
+.opportunity-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+
+/* =================================
+   OPPORTUNITY CARD
+================================= */
+
+.opportunity-card {
+  display: flex;
+  flex-direction: column;
+  padding: 23px;
+  border: 1px solid #e6e8ef;
+  border-radius: 17px;
+  background: #ffffff;
+  box-shadow: 0 7px 25px rgba(30, 34, 60, 0.04);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(30, 34, 60, 0.08);
+}
+
+.opportunity-card h3 {
+  margin: 0 0 15px;
+  color: #202638;
+  font-size: 19px;
+  line-height: 1.35;
+}
+
+.opportunity-card p {
+  margin: 5px 0;
+  color: #6e7588;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.opportunity-card strong {
+  color: #3c4456;
+}
+
+
+/* =================================
+   CARD BUTTONS
+================================= */
+
+.opportunity-card button {
+  margin-top: 18px;
+  margin-right: 7px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #635bff;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.opportunity-card button:hover {
+  background: #5149e8;
+}
+
+.opportunity-card button:last-child {
+  background: #fff0f0;
+  color: #d64545;
+}
+
+.opportunity-card button:last-child:hover {
+  background: #ffe1e1;
+}
+
+
+/* =================================
+   LOADING / EMPTY STATE
+================================= */
+
+.admin-container > p {
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #747c8f;
+  font-size: 14px;
+}
+
+
+/* =================================
+   RESPONSIVE
+================================= */
+
+@media (max-width: 1000px) {
+  .opportunity-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
   .admin-container {
-    margin: 20px auto;
-    padding: 15px;
+    padding: 35px 5%;
+  }
+
+  .admin-title {
+    font-size: 28px;
   }
 
   .admin-form {
+    padding: 22px;
+  }
+
+  .admin-form form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form textarea {
+    grid-column: auto;
+  }
+
+  .opportunity-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 450px) {
+  .admin-form {
     padding: 18px;
+  }
+
+  .admin-form button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .admin-form button[type="button"] {
+    margin-left: 0;
   }
 }

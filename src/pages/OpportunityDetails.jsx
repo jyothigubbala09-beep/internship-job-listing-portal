@@ -31,80 +31,167 @@ function OpportunityDetails() {
 
   if (loading) {
     return (
-      <div className="details-container">
-        <p className="details-status">Loading opportunity...</p>
+      <div className="details-loading">
+        <div className="details-spinner"></div>
+        <p>Loading opportunity...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="details-container">
-        <div className="details-error">
-          <h2>{error}</h2>
-          <Link to="/">← Back to Opportunities</Link>
-        </div>
+      <div className="details-error-page">
+        <div className="details-error-icon">!</div>
+        <h2>{error}</h2>
+        <p>The opportunity may have been removed or does not exist.</p>
+
+        <Link to="/" className="back-home-button">
+          ← Back to Opportunities
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="details-container">
+    <main className="details-page">
 
-      <Link to="/" className="back-link">
-        ← Back to Opportunities
-      </Link>
+      <div className="details-wrapper">
 
-      <div className="details-card">
+        {/* Back Button */}
+        <Link to="/" className="details-back">
+          ← Back to Opportunities
+        </Link>
 
-        <div className="details-header">
-          <span className="details-domain">
-            {opportunity.domain}
-          </span>
 
-          <h1>{opportunity.title}</h1>
+        {/* Main Header Card */}
+        <section className="details-hero-card">
 
-          <p className="details-company">
-            {opportunity.company}
-          </p>
-        </div>
-
-        <div className="details-info">
-
-          <div className="info-item">
-            <span>📍 Location</span>
-            <strong>{opportunity.location}</strong>
+          <div className="details-company-icon">
+            {opportunity.company?.charAt(0)?.toUpperCase() || "C"}
           </div>
 
-          <div className="info-item">
-            <span>💼 Experience</span>
-            <strong>{opportunity.experience}</strong>
+          <div className="details-hero-content">
+
+            <span className="details-domain">
+              {opportunity.domain}
+            </span>
+
+            <h1>{opportunity.title}</h1>
+
+            <p className="details-company-name">
+              {opportunity.company}
+            </p>
+
           </div>
 
-        </div>
+        </section>
 
-        <div className="details-description">
-          <h2>About this opportunity</h2>
 
-          <p>{opportunity.description}</p>
-        </div>
+        {/* Main Content */}
+        <div className="details-layout">
 
-        <div className="apply-section">
+          {/* Left Content */}
+          <section className="details-main-content">
 
-          <a
-            href={opportunity.applicationLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="apply-button"
-          >
-            Apply Now →
-          </a>
+            <div className="details-section">
+
+              <h2>About this opportunity</h2>
+
+              <p>
+                {opportunity.description}
+              </p>
+
+            </div>
+
+
+            <div className="details-section">
+
+              <h2>Opportunity Information</h2>
+
+              <div className="details-info-grid">
+
+                <div className="details-info-box">
+                  <span className="info-icon">📍</span>
+
+                  <div>
+                    <small>Location</small>
+                    <strong>{opportunity.location}</strong>
+                  </div>
+                </div>
+
+
+                <div className="details-info-box">
+                  <span className="info-icon">💼</span>
+
+                  <div>
+                    <small>Experience</small>
+                    <strong>{opportunity.experience}</strong>
+                  </div>
+                </div>
+
+
+                <div className="details-info-box">
+                  <span className="info-icon">🏷️</span>
+
+                  <div>
+                    <small>Domain</small>
+                    <strong>{opportunity.domain}</strong>
+                  </div>
+                </div>
+
+
+                <div className="details-info-box">
+                  <span className="info-icon">🏢</span>
+
+                  <div>
+                    <small>Company</small>
+                    <strong>{opportunity.company}</strong>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          {/* Right Apply Card */}
+          <aside className="apply-card">
+
+            <div className="apply-card-icon">
+              🚀
+            </div>
+
+            <h2>Ready to apply?</h2>
+
+            <p>
+              Take the next step toward your career.
+              Apply for this opportunity through the
+              official application link.
+            </p>
+
+            <a
+              href={opportunity.applicationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="apply-button-new"
+            >
+              Apply Now
+              <span>→</span>
+            </a>
+
+            <div className="apply-note">
+              🔒 You will be redirected to the application website.
+            </div>
+
+          </aside>
 
         </div>
 
       </div>
 
-    </div>
+    </main>
   );
 }
 

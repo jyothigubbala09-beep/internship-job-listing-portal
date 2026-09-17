@@ -35,7 +35,7 @@ function Home() {
       opportunities
         .map((item) => item.domain)
         .filter(Boolean)
-    )
+    ),
   ];
 
   const filteredOpportunities = opportunities.filter((item) => {
@@ -57,15 +57,17 @@ function Home() {
 
   if (loading) {
     return (
-      <div className="home-container">
-        <h2>Loading opportunities...</h2>
+      <div className="home-loading">
+        <div className="loading-spinner"></div>
+        <p>Finding opportunities for you...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="home-container">
+      <div className="home-error">
+        <div className="error-icon">!</div>
         <h2>{error}</h2>
         <p>Please make sure the backend server is running.</p>
       </div>
@@ -73,99 +75,178 @@ function Home() {
   }
 
   return (
-    <div className="home-container">
+    <main className="home-page">
 
-      <div className="home-header">
-        <h1>Internship & Job Opportunities</h1>
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
 
-        <p>
-          Explore internships and job opportunities
-          that match your skills and interests.
-        </p>
-      </div>
+          <span className="hero-badge">
+            🚀 Build Your Career
+          </span>
 
-      <div className="search-section">
+          <h1>
+            Find Your Next
+            <span> Opportunity</span>
+          </h1>
 
-        <input
-          type="text"
-          placeholder="Search by title or company..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <select
-          value={domain}
-          onChange={(e) => setDomain(e.target.value)}
-        >
-          {domains.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
-
-      </div>
-
-      <p className="result-count">
-        Showing {filteredOpportunities.length}{" "}
-        {filteredOpportunities.length === 1
-          ? "opportunity"
-          : "opportunities"}
-      </p>
-
-      {filteredOpportunities.length === 0 ? (
-        <div className="no-results">
-          <h2>No opportunities found</h2>
           <p>
-            Try changing your search or selecting
-            another domain.
+            Discover internships and job opportunities
+            that match your skills, interests and career goals.
           </p>
-        </div>
-      ) : (
-        <div className="home-opportunity-list">
 
-          {filteredOpportunities.map((item) => (
-            <div
-              className="home-opportunity-card"
-              key={item._id}
-            >
+          <div className="hero-search">
+            <div className="search-input-wrapper">
+              <span className="search-icon">⌕</span>
 
-              <h2>{item.title}</h2>
-
-              <p>
-                <strong>Company:</strong>{" "}
-                {item.company}
-              </p>
-
-              <p>
-                <strong>Domain:</strong>{" "}
-                {item.domain}
-              </p>
-
-              <p>
-                <strong>Location:</strong>{" "}
-                {item.location}
-              </p>
-
-              <p>
-                <strong>Experience:</strong>{" "}
-                {item.experience}
-              </p>
-
-              <Link
-                className="details-button"
-                to={`/opportunity/${item._id}`}
-              >
-                View Details →
-              </Link>
-
+              <input
+                type="text"
+                placeholder="Search by job title or company..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
             </div>
-          ))}
+
+            <select
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+            >
+              {domains.map((item) => (
+                <option key={item} value={item}>
+                  {item === "All" ? "All Domains" : item}
+                </option>
+              ))}
+            </select>
+          </div>
 
         </div>
-      )}
 
-    </div>
+        <div className="hero-decoration">
+          <div className="decoration-circle circle-one"></div>
+          <div className="decoration-circle circle-two"></div>
+          <div className="decoration-card">
+            <span>💼</span>
+            <strong>CareerHub</strong>
+            <small>Opportunities await</small>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Opportunities Section */}
+      <section className="opportunities-section">
+
+        <div className="section-heading">
+          <div>
+            <span className="section-label">EXPLORE</span>
+
+            <h2>
+              Latest Opportunities
+            </h2>
+
+            <p>
+              Explore opportunities and take the next step
+              toward your career.
+            </p>
+          </div>
+
+          <div className="result-badge">
+            {filteredOpportunities.length}{" "}
+            {filteredOpportunities.length === 1
+              ? "Opportunity"
+              : "Opportunities"}
+          </div>
+        </div>
+
+
+        {filteredOpportunities.length === 0 ? (
+          <div className="no-results-card">
+            <div className="no-results-icon">🔍</div>
+
+            <h2>No opportunities found</h2>
+
+            <p>
+              Try searching for another title, company
+              or domain.
+            </p>
+
+            <button
+              onClick={() => {
+                setSearch("");
+                setDomain("All");
+              }}
+            >
+              Clear Filters
+            </button>
+          </div>
+        ) : (
+          <div className="opportunities-grid">
+
+            {filteredOpportunities.map((item) => (
+              <article
+                className="opportunity-card-new"
+                key={item._id}
+              >
+
+                <div className="card-top">
+                  <div className="company-icon">
+                    {item.company?.charAt(0)?.toUpperCase() || "C"}
+                  </div>
+
+                  <span className="domain-badge">
+                    {item.domain}
+                  </span>
+                </div>
+
+
+                <div className="card-content">
+
+                  <h3>{item.title}</h3>
+
+                  <p className="company-name">
+                    {item.company}
+                  </p>
+
+                  <div className="job-info">
+
+                    <span>
+                      📍 {item.location}
+                    </span>
+
+                    <span>
+                      💼 {item.experience}
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <div className="card-footer">
+
+                  <span className="opportunity-type">
+                    Internship / Job
+                  </span>
+
+                  <Link
+                    to={`/opportunity/${item._id}`}
+                    className="view-button"
+                  >
+                    View Details
+                    <span>→</span>
+                  </Link>
+
+                </div>
+
+              </article>
+            ))}
+
+          </div>
+        )}
+
+      </section>
+
+    </main>
   );
 }
 

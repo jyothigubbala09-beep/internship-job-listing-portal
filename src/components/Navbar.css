@@ -1,56 +1,126 @@
+/* ================================
+   CAREERHUB NAVBAR
+================================ */
+
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  height: 72px;
+  padding: 0 6%;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 18px 40px;
-  background: #ffffff;
-  border-bottom: 1px solid #eaeaea;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  justify-content: space-between;
+
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid #e8e9ef;
+
+  backdrop-filter: blur(12px);
 }
 
+
+/* ================================
+   LOGO
+================================ */
+
 .navbar-logo {
+  color: #202638;
   text-decoration: none;
-  font-size: 25px;
-  font-weight: 700;
-  color: #222222;
+
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
 }
 
 .navbar-logo span {
-  color: #6c63ff;
+  color: #635bff;
 }
+
+
+/* ================================
+   NAVIGATION
+================================ */
 
 .navbar-links {
   display: flex;
-  gap: 25px;
   align-items: center;
+  gap: 8px;
 }
 
 .navbar-link {
+  position: relative;
+
+  padding: 9px 14px;
+
+  border-radius: 8px;
+
+  color: #667085;
   text-decoration: none;
-  color: #444444;
-  font-size: 15px;
-  font-weight: 500;
-  transition: 0.2s ease;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
 .navbar-link:hover {
-  color: #6c63ff;
+  color: #635bff;
+  background: #f2f1ff;
 }
+
+
+/* ================================
+   ADMIN BUTTON
+================================ */
+
+.navbar-link:last-child {
+  margin-left: 5px;
+
+  background: #635bff;
+  color: #ffffff;
+}
+
+.navbar-link:last-child:hover {
+  background: #5149e8;
+  color: #ffffff;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
 
 @media (max-width: 600px) {
   .navbar {
-    padding: 15px 20px;
-  }
-
-  .navbar-links {
-    gap: 12px;
+    height: 65px;
+    padding: 0 5%;
   }
 
   .navbar-logo {
     font-size: 21px;
   }
 
+  .navbar-links {
+    gap: 3px;
+  }
+
   .navbar-link {
-    font-size: 14px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar-logo {
+    font-size: 19px;
+  }
+
+  .navbar-link {
+    padding: 7px 8px;
+    font-size: 11px;
   }
 }
