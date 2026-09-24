@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../AdminDashboard.css";
+import "../adminDashboard.css";
 
 function AdminDashboard() {
   const [formData, setFormData] = useState({
