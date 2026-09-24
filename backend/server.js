@@ -1,7 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const dns = require("dns");
 const { MongoClient } = require("mongodb");
+
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 dotenv.config();
 
@@ -10,8 +13,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const client = new MongoClient(process.env.MONGODB_URL);
-
+const client = new MongoClient(process.env.MONGODB_URL, {
+  serverSelectionTimeoutMS: 10000
+});
 const {
   router: opportunityRoutes,
   setDatabase
@@ -67,3 +71,8 @@ app.use("/api/applications", applicationRoutes);
 app.use("/api/admin", adminRoutes);
 
 module.exports = app;
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
